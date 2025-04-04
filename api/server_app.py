@@ -29,7 +29,7 @@ app.add_middleware(
     allow_origins=["https://vue-interface-chi.vercel.app"],
     allow_credentials=True,
     allow_methods=["GET"],
-    allow_headers=["*"],
+    allow_headers=["Content-Type"],
 )
 
 # Caminho do arquivo CSV
