@@ -11,10 +11,10 @@
 git clone https://github.com/RaphaelMun1z/Python_Server.git
 
 2. Instale as dependências:
-pip install fastapi pandas uvicorn
+pip install -r requirements.txt
 
 3. Inicie o servidor utilizando o seguinte comando:
-uvicorn server_app:app --reload
+uvicorn server_app:app --reload --port 8000
 
 4. Acesse a documentação Swagger (localmente) em:
 http://localhost:8000/docs
