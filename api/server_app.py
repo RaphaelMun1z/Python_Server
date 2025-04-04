@@ -31,7 +31,7 @@ app.add_middleware(
 )
 
 # Caminho do arquivo CSV
-csvFilePath = '../resources/Relatorio_cadop.csv'
+csvFilePath = './resources/Relatorio_cadop.csv'
 
 # Delimitador do CSV
 csvDelimiter = ';'
