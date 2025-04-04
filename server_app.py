@@ -31,7 +31,7 @@ app.add_middleware(
 )
 
 # Caminho do arquivo CSV
-csvFilePath = '../resources/Relatorio_cadop.csv'
+csvFilePath = './resources/Relatorio_cadop.csv'
 
 # Delimitador do CSV
 csvDelimiter = ';'
@@ -60,6 +60,11 @@ except Exception as e:
     raise RuntimeError(f"Ocorreu o seguinte erro ao tentar carregar o CSV: {str(e)}")
 
 # Endpoints
+
+# Teste de conexão
+@app.get("/api")
+def root():
+    return {"message": "API está funcionando!"}
 
 @app.get("/api/operadora/search-term/", 
          response_model=Dict[str, Any], 
