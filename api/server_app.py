@@ -25,13 +25,13 @@ app = FastAPI(
 # Configuração do CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://localhost:5173"],
+    allow_origins=["http://localhost:3000", "http://localhost:5173", "*"],
     allow_methods=["GET"],
     allow_headers=["*"],
 )
 
 # Caminho do arquivo CSV
-csvFilePath = './resources/Relatorio_cadop.csv'
+csvFilePath = '../resources/Relatorio_cadop.csv'
 
 # Delimitador do CSV
 csvDelimiter = ';'
@@ -62,7 +62,7 @@ except Exception as e:
 # Endpoints
 
 # Teste de conexão
-@app.get("/api")
+@app.get("/")
 def root():
     return {"message": "API está funcionando!"}
 
