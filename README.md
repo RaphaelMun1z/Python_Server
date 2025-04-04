@@ -23,3 +23,5 @@ http://localhost:8000/docs
 
 6. Acesse a documentação Swagger (cloud) em:
 https://python-server-4ywiailju-raphael-munizs-projects.vercel.app/docs
+
+7. Collection do Postman está em 'postman_collection'

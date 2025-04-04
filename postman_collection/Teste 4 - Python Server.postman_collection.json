@@ -1,0 +1,133 @@
+{
+	"info": {
+		"_postman_id": "29939f79-fc44-42a6-85f8-7080d59dc0d4",
+		"name": "Teste 4 - Python Server",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21098711"
+	},
+	"item": [
+		{
+			"name": "Operadoras",
+			"item": [
+				{
+					"name": "Get by Text Term",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/operadora/search-term/?term=PLANO&page=2&per_page=5",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"operadora",
+								"search-term",
+								""
+							],
+							"query": [
+								{
+									"key": "term",
+									"value": "PLANO"
+								},
+								{
+									"key": "page",
+									"value": "2"
+								},
+								{
+									"key": "per_page",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get by Registro ANS",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/operadora/search-ans-register/?registroAns=335657",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"operadora",
+								"search-ans-register",
+								""
+							],
+							"query": [
+								{
+									"key": "registroAns",
+									"value": "335657"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Teste de Conexão - Cloud",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://python-server-rouge.vercel.app/",
+							"protocol": "https",
+							"host": [
+								"python-server-rouge",
+								"vercel",
+								"app"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "URL",
+			"value": "http://127.0.0.1:8000/api",
+			"type": "string",
+			"disabled": true
+		},
+		{
+			"key": "URL",
+			"value": "https://python-server-rouge.vercel.app/api",
+			"type": "string"
+		},
+		{
+			"value": "",
+			"type": "string",
+			"disabled": true
+		}
+	]
+}
