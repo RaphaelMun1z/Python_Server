@@ -2,9 +2,25 @@ from fastapi import FastAPI, Query, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from typing import Dict, Any
 import pandas as pd
+import re
 import os
 
-app = FastAPI()
+app = FastAPI(
+    title="API de operadoras de plano de saúde ativas",
+    description="API para consulta de operadoras de saúde registradas na ANS",
+    version="1.0.0",
+    contact={
+        "name": "Raphael Muniz Varela",
+        "email": "raphaelmunizvarela@gmail.com",
+    },
+    license_info={
+        "name": "MIT",
+    },
+    openapi_tags=[{
+        "name": "operadoras",
+        "description": "Operações relacionadas a operadoras de saúde"
+    }]
+)
 
 # Configuração do CORS
 app.add_middleware(
@@ -27,13 +43,29 @@ csvEncoding = 'utf-8'
 if not os.path.exists(csvFilePath):
     raise FileNotFoundError(f"O arquivo CSV não foi encontrado!")
 
+def to_camel_case(name: str) -> str:
+    name = re.sub(r'[^a-zA-Z0-9]', '_', str(name))
+    parts = name.split('_')
+    return parts[0].lower() + ''.join(word.capitalize() for word in parts[1:])
+
+def normalize_column_names(df: pd.DataFrame) -> pd.DataFrame:
+    df.columns = [to_camel_case(col) for col in df.columns]
+    return df
+
 # Realiza a tentativa de leitura dos dados presentes no CSV
 try:
     df = pd.read_csv(csvFilePath, encoding=csvEncoding, delimiter=csvDelimiter)
+    df = normalize_column_names(df)
 except Exception as e:
     raise RuntimeError(f"Ocorreu o seguinte erro ao tentar carregar o CSV: {str(e)}")
 
-@app.get("/api/operadora/search-term/", response_model=Dict[str, Any])
+# Endpoints
+
+@app.get("/api/operadora/search-term/", 
+         response_model=Dict[str, Any], 
+         summary="Busca operadoras por termo textual", 
+         description="""Realiza uma busca textual em todas as colunas do dataset de operadoras. Retorna resultados paginados.""", 
+         tags=["operadoras"])
 async def searchForOperadoras(
     term: str,
     page: int = Query(1, ge=1, description="Número da página"),
@@ -62,27 +94,31 @@ async def searchForOperadoras(
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Ocorreu um erro durante a busca: {str(e)}")
     
-@app.get("/api/operadora/search-ans-register/", response_model=Dict[str, Any])
+@app.get("/api/operadora/search-ans-register/", 
+         response_model=Dict[str, Any],
+         summary="Busca operadora por registro ANS",
+         description="""Busca uma operadora específica usando seu número de registro na ANS. Retorna todos os detalhes da operadora encontrada.""",
+         tags=["operadoras"])
 async def searchByRegistroANS(
-    registro_ans: str = Query(..., description="Registro ANS")
+    registroAns: str = Query(..., description="Registro ANS")
 ) -> Dict[str, Any]:
     try:
-        # Realiza a verificação da coluna no DataFrame
-        if 'Registro_ANS' not in df.columns:
+        # Verifica se a coluna existe no DataFrame
+        if 'registroAns' not in df.columns:
             raise HTTPException(
                 status_code=400,
-                detail="Coluna 'Registro_ANS' não existe!"
+                detail="Coluna 'registroAns' não existe!"
             )
         
         # Filtra os dados
-        registro_ans = registro_ans.strip()
-        resultado = df[df['Registro_ANS'].astype(str).str.strip().str.lstrip('0') == registro_ans.lstrip('0')]
+        registroAns = registroAns.strip()
+        resultado = df[df['registroAns'].astype(str).str.strip().str.lstrip('0') == registroAns.lstrip('0')]
         
         # Verifica se encontrou algum registro
         if resultado.empty:
             raise HTTPException(
                 status_code=404,
-                detail=f"Nenhuma operadora encontrada com o Registro ANS: {registro_ans}"
+                detail=f"Nenhuma operadora encontrada com o Registro ANS: {registroAns}"
             )
         
         return {
