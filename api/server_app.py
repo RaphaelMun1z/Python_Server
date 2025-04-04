@@ -26,7 +26,7 @@ app = FastAPI(
 # Configuração do CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["https://teste-vue-project.vercel.app"],
     allow_credentials=True,
     allow_methods=["GET"],
     allow_headers=["*"],
