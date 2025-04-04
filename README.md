@@ -16,5 +16,5 @@ pip install fastapi pandas uvicorn
 3. Inicie o servidor utilizando o seguinte comando:
 uvicorn server_app:app --reload
 
-4. Acesse a documentação Swagger em:
+4. Acesse a documentação Swagger (localmente) em:
 http://localhost:8000/docs
