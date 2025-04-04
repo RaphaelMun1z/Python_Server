@@ -20,3 +20,6 @@ uvicorn server_app:app --reload --port 8000
 
 5. Acesse a documentação Swagger (localmente) em:
 http://localhost:8000/docs
+
+6. Acesse a documentação Swagger (cloud) em:
+https://python-server-4ywiailju-raphael-munizs-projects.vercel.app/docs

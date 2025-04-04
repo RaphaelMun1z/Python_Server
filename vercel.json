@@ -1,8 +1,14 @@
 {
-    "build": {
-        "src": "api/server_app.py",
-        "use": "@vercel/python"
-    },
+    "devCommand": "uvicorn server_app:app --reload --host 0.0.0.0 --port 8000",
+    "builds": [
+        {
+            "src": "api/server_app.py",
+            "use": "@vercel/python",
+            "config": {
+                "includeFiles": ["resources/*.csv"]
+            }
+        }
+    ],
     "routes": [
         {
             "src": "/(.*)",

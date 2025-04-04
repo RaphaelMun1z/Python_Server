@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from typing import Dict, Any
 import pandas as pd
 import re
+from pathlib import Path
 import os
 
 app = FastAPI(
@@ -31,7 +32,7 @@ app.add_middleware(
 )
 
 # Caminho do arquivo CSV
-csvFilePath = './resources/Relatorio_cadop.csv'
+csvFilePath = Path(__file__).parent / "resources" / "Relatorio_cadop.csv"
 
 # Delimitador do CSV
 csvDelimiter = ';'
