@@ -13,8 +13,10 @@ git clone https://github.com/RaphaelMun1z/Python_Server.git
 2. Instale as dependências:
 pip install -r requirements.txt
 
-3. Inicie o servidor utilizando o seguinte comando:
+3. Acesse o diretório 'api'
+
+4. Inicie o servidor utilizando o seguinte comando:
 uvicorn server_app:app --reload --port 8000
 
-4. Acesse a documentação Swagger (localmente) em:
+5. Acesse a documentação Swagger (localmente) em:
 http://localhost:8000/docs
